@@ -72,7 +72,7 @@ public class books_repository
 
 public async void AddBook(string bookTitle,string editionTitle,int publishingHouseId,DateTime releaseDate)
     {
-        var query = "INSERT INTO books (PK,title) VALUES ((SELECT MAX( customer_id ) FROM customers) + 1,@bookTitle)";
+        var query = "INSERT INTO books (PK,title) VALUES ((SELECT MAX( PK ) FROM books) + 1,@bookTitle)";
         var query2 = "INSERT INTO books_editions (PK,FK_publishing_house,FK_book,edition_title,release_date) VALUES ((SELECT MAX( customer_id ) FROM customers) + 1,@publishingHouseId,(SELECT PK FROM books WHERE title = @bookTitle2),@editionTitle,@releaseDate)";
         
         using SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("Default"));
